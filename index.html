@@ -201,17 +201,19 @@ body {
         <h1>&#127873;</h1>
       </div>
     </div>
-    <script>
-      function speakText() {
-  if (window.speechSynthesis.speaking) {
-    return;
+   <script>
+  function speakText() {
+    if (sessionStorage.getItem('speechGenerated')) {
+      return;
+    }
+    var cardText = document.querySelector('.back div').textContent;
+    var utterance = new SpeechSynthesisUtterance(cardText);
+    utterance.pitch = 2;
+    utterance.volume = 0.7;
+    window.speechSynthesis.speak(utterance);
+    sessionStorage.setItem('speechGenerated', 'true');
   }
-  var cardText = document.querySelector('.back div').textContent;
-  var utterance = new SpeechSynthesisUtterance(cardText);
-  utterance.pitch = 2;
-  utterance.volume = 0.7;
-  window.speechSynthesis.speak(utterance);
-}
-    </script>
+</script>
+
   </body>
 </html>
